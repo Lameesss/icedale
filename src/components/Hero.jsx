@@ -72,7 +72,7 @@ export default function Hero() {
                 transition={{ delay: 0.6 }}
                 className="text-3xl sm:text-4xl font-bold uppercase leading-tight"
               >
-                Be Exceptional.
+                Drink And Repeat.
               </motion.h1>
 
               {/* CTA Button */}
@@ -117,7 +117,7 @@ export default function Hero() {
                 transition={{ delay: 0.4 }}
                 className="text-6xl lg:text-7xl font-bold uppercase leading-tight"
               >
-                Be Exceptional.
+                Drink And Repeat.
               </motion.h1>
 
               {/* CTA Button */}
