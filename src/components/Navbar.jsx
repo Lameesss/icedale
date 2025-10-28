@@ -49,20 +49,20 @@ export default function Navbar() {
           {/* Mobile Menu Button - Left (Mobile Only) */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1.5 order-1"
+            className="lg:hidden flex flex-col justify-center items-center w-16 h-10 space-y-1.5 order-1"
             aria-label="Toggle menu"
           >
             <motion.span
               animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              className={`w-6 h-0.5 block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
+              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
             />
             <motion.span
               animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-              className={`w-6 h-0.5 block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
+              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
             />
             <motion.span
-              animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-              className={`w-6 h-0.5 block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
+              animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
             />
           </button>
 
@@ -146,7 +146,7 @@ export default function Navbar() {
             {/* Cart Icon - Desktop Only */}
             <Link
               href="/"
-              className={`hidden lg:block transition-colors ${
+              className={` hidden lg:block transition-colors ${
                 showWhiteBg ? "text-black hover:text-gray-500" : "text-white hover:text-white/80"
               }`}
               aria-label="Cart"
