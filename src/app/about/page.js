@@ -43,7 +43,7 @@ export default function About() {
                   Our journey began when our founders discovered an ancient natural spring deep in the Western Ghats. This pristine water source, untouched by modern pollution and naturally filtered through layers of volcanic rock, became the foundation of what Icedale is today.
                 </p>
                 <p>
-                  Today, we're proud to be one of Kerala's leading premium water bottle companies, serving thousands of families and businesses across the region with our commitment to purity, quality, and sustainability.
+                  Today, we are proud to be one of Kerala s leading premium water bottle companies, serving thousands of families and businesses across the region with our commitment to purity, quality, and sustainability.
                 </p>
               </div>
             </motion.div>
@@ -64,7 +64,7 @@ export default function About() {
                                 className="object-cover"
                                 sizes="(max-width: 1024px) 100vw, 50vw"
                               />
-                <p className="text-gray-500">Company Image Placeholder</p>
+                <p className="text-gray-500"></p>
               </div>
             </motion.div>
           </div>
@@ -196,7 +196,7 @@ export default function About() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Advanced Purification</h3>
                 <p className="text-gray-600">
-                  State-of-the-art filtration and purification processes ensure every bottle meets international quality standards.
+                  State of the art filtration and purification processes ensure every bottle meets international quality standards.
                 </p>
               </div>
             </motion.div>

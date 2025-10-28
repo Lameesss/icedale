@@ -17,7 +17,7 @@ export default function Contact() {
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">GET IN TOUCH</h1>
             <p className="text-lg lg:text-xl max-w-2xl mx-auto">
-              Have questions about our premium water bottles? We're here to help!
+              Have questions about our premium water bottles? We are here to help!
             </p>
           </motion.div>
         </div>
