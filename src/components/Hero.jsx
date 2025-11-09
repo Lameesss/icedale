@@ -5,38 +5,41 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function Hero() {
-  // Premium luxury animation variants
+  // Optimized premium luxury animation variants
   const luxuryFadeIn = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
       transition: { 
-        duration: 1.2,
-        ease: [0.25, 0.1, 0.25, 1] // Cubic bezier for smooth luxury feel
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1], // Smooth deceleration
+        delay: 0.2
       }
     }
   };
 
   const elegantSlideUp = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: 1,
-        ease: [0.22, 1, 0.36, 1] // Smooth deceleration
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0.3
       }
     }
   };
 
   const sophisticatedScale = {
-    hidden: { opacity: 0, scale: 0.95 },
+    hidden: { opacity: 0, scale: 0.98 },
     visible: { 
       opacity: 1, 
       scale: 1,
       transition: { 
-        duration: 1.4,
-        ease: [0.16, 1, 0.3, 1] // Gentle, premium easing
+        duration: 0.9,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0.4
       }
     }
   };
@@ -46,10 +49,11 @@ export default function Hero() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <motion.div
-          initial={{ scale: 1.1, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="relative w-full h-full"
+          style={{ willChange: 'opacity' }}
         >
           <Image
             src="/images/hero1.jpg"
@@ -57,7 +61,7 @@ export default function Hero() {
             fill
             className="object-cover"
             priority
-            quality={100}
+            quality={90}
           />
           {/* Subtle gradient overlay for luxury depth */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -75,6 +79,7 @@ export default function Hero() {
               animate="visible"
               variants={sophisticatedScale}
               className="relative h-[300px] w-full flex items-center justify-center"
+              style={{ willChange: 'transform, opacity' }}
             >
               <div className="relative w-full h-full">
                 <Image
@@ -98,7 +103,7 @@ export default function Hero() {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 1 }}
+                transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
                 className="text-sm uppercase tracking-widest font-medium"
               >
                 You are what you drink
@@ -106,9 +111,9 @@ export default function Hero() {
 
               {/* Main Heading */}
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: 0.8, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="text-3xl sm:text-4xl font-bold uppercase leading-tight"
               >
                 Drink And Repeat.
@@ -118,7 +123,7 @@ export default function Hero() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.4, duration: 0.8 }}
+                transition={{ delay: 1.1, duration: 0.6, ease: "easeOut" }}
               >
                 <Link
                   href="/product"
@@ -143,7 +148,7 @@ export default function Hero() {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 1.2 }}
+                transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
                 className="text-base uppercase tracking-widest font-medium"
               >
                 You are what you drink
@@ -151,9 +156,9 @@ export default function Hero() {
 
               {/* Main Heading */}
               <motion.h1
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: 0.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 className="text-6xl lg:text-7xl font-bold uppercase leading-tight"
               >
                 Drink And Repeat.
@@ -163,7 +168,7 @@ export default function Hero() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1.6, duration: 0.8 }}
+                transition={{ delay: 1, duration: 0.6, ease: "easeOut" }}
               >
                 <Link
                   href="/product"
@@ -180,6 +185,7 @@ export default function Hero() {
               animate="visible"
               variants={sophisticatedScale}
               className="relative h-[700px] flex items-center justify-center"
+              style={{ willChange: 'transform, opacity' }}
             >
               <div className="relative w-full h-full">
                 <Image
@@ -199,12 +205,12 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        transition={{ delay: 1.3, duration: 0.5 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           className="text-white text-center"
         >
           <svg
