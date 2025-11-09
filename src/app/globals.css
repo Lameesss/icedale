@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  /* Icedale Brand Colors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-blue: #1941b9;
+  
+  /* Semantic color names for easy usage */
+  --primary: var(--color-blue);
+  --secondary: var(--color-white);
+  --text-dark: var(--color-black);
+  --text-light: var(--color-white);
+  --background-light: var(--color-white);
+  --background-dark: var(--color-black);
+  --accent: var(--color-blue);
+}
+
+@theme inline {
+  /* Tailwind CSS custom colors */
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-white: var(--color-white);
+  --color-black: var(--color-black);
+  --color-blue: var(--color-blue);
+}
+
+html, body {
+  background: var(--background-light);
+  color: var(--text-dark);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
