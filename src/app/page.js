@@ -20,13 +20,13 @@ export default function Home() {
       <Banner2 />
       <Drink />
       <Product />
+      <Video />
       <Content />
       <Icon />
-      <Images />
-      <About />
-      <Video />
-      <Content2 />
-      <ImageContent />
+      {/* <About /> */}
+      {/* <Content2 />
+      <ImageContent /> */}
+      <Images /> 
       <Social />
     </main>
   );

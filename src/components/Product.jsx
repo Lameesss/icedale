@@ -10,20 +10,26 @@ export default function Product() {
     {
       id: 1,
       name: "NATURAL SPRING WATER",
-      image: "/images/product2.png",
-      link: "/product/natural-spring-water",
+      image: "/prod1.png",
+      link: "https://wa.me/919995900122?text=I'm%20interested%20in%20your%20products",
     },
     {
       id: 2,
       name: "GLASS",
-      image: "/images/product3.png",
-      link: "/product/glass",
+      image: "/prod2.png",
+      link: "https://wa.me/919995900122?text=I'm%20interested%20in%20your%20products",
     },
     {
       id: 3,
       name: "ALUMINUM CANS",
-      image: "/images/product4.png",
-      link: "/product/aluminum-cans",
+      image: "/prod3.png",
+      link: "https://wa.me/919995900122?text=I'm%20interested%20in%20your%20products",
+    },
+    {
+      id: 3,
+      name: "ALUMINUM CANS",
+      image: "/five.png",
+      link: "https://wa.me/919995900122?text=I'm%20interested%20in%20your%20products",
     },
   ];
 
@@ -31,7 +37,7 @@ export default function Product() {
     <section className="w-full py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-16">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
@@ -59,14 +65,14 @@ export default function Product() {
               </div>
 
               {/* Product Name */}
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-4 text-black">
+              {/* <h3 className="text-sm font-bold uppercase tracking-wider mb-4 text-black">
                 {product.name}
-              </h3>
+              </h3> */}
 
               {/* Shop Now Link */}
               <Link
                 href={"/product"}
-                className="inline-block text-xs font-bold uppercase tracking-wider text-black hover:text-blue-950 transition-all duration-300"
+                className="inline-block text-xs border border-black p-2 rounded-xl font-bold uppercase tracking-wider text-black hover:text-blue-950 transition-all duration-300"
               >
                 SHOP NOW
               </Link>
