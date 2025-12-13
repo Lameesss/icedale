@@ -4,6 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp, fadeInLeft, fadeInRight } from "@/utils/animations";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export default function Social() {
   const socialImages = [
@@ -55,10 +61,9 @@ export default function Social() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInLeft}
-            className="order-2 lg:order-1 flex items-center justify-center"
-            style={{ backgroundColor: "#203f69" }}
+            className="order-2 lg:order-1 flex items-center justify-center bg-blue-900"
           >
-            <div className="text-left text-white p-12 lg:p-16">
+            <div className={`text-left text-white p-12 lg:p-16 ${outfit.className}`}>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +80,7 @@ export default function Social() {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="text-sm sm:text-base font-extralight"
               >
-                 stay in touch.
+                stay in touch.
               </motion.p>
             </div>
           </motion.div>

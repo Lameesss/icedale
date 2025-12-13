@@ -5,10 +5,15 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === "/";
@@ -37,43 +42,22 @@ export default function Navbar() {
   const showWhiteBg = !isHomePage || isScrolled || isOpen;
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        showWhiteBg
-          ? "bg-white border-b border-gray-200 shadow-sm" 
-          : "bg-transparent border-b border-transparent"
-      }`}
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${outfit.className} ${showWhiteBg
+        ? "bg-white border-b border-gray-200 shadow-sm"
+        : "bg-transparent border-b border-transparent"
+        }`}
     >
       <div className="w-full px-8 lg:px-12">
         <div className="flex justify-between items-center h-16 lg:justify-between">
-          {/* Mobile Menu Button - Left (Mobile Only) */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden flex flex-col justify-center items-center w-16 h-10 space-y-1.5 order-1"
-            aria-label="Toggle menu"
-          >
-            <motion.span
-              animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
-            />
-            <motion.span
-              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
-            />
-            <motion.span
-              animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-white"}`}
-            />
-          </button>
-
-          {/* Logo - Center on Mobile, Left on Desktop */}
-          <Link href="/" className="flex items-center order-2 lg:order-1">
+          {/* Logo - Left on Mobile, Left on Desktop */}
+          <Link href="/" className="flex items-center order-1">
             <Image
               src="/images/logo.png"
               alt="Icedale Logo"
-              width={320}
-              height={120}
-              className="h-20 lg:h-26 w-auto"
+              width={220}
+              height={90}
+              className="h-14 lg:h-16 w-auto"
               priority
             />
           </Link>
@@ -84,112 +68,35 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`transition-all duration-300 text-sm font-medium uppercase tracking-wider relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-[-4px] after:left-0 after:bg-gray-200 after:transition-all after:duration-300 hover:after:w-full ${
-                  showWhiteBg ? "text-black hover:text-black" : "text-white hover:text-white/80"
-                }`}
+                className={`transition-all duration-300 text-sm font-medium uppercase tracking-wider relative after:content-[''] after:absolute after:w-0 after:h-[2px] after:bottom-[-4px] after:left-0 after:bg-gray-200 after:transition-all after:duration-300 hover:after:w-full ${showWhiteBg ? "text-black hover:text-black" : "text-black hover:text-black/80"
+                  }`}
               >
                 {item.name}
               </Link>
             ))}
           </div>
 
-          {/* Right Side Icons */}
-          <div className="flex items-center space-x-4 lg:space-x-6 order-3">
-            {/* Search Icon */}
-            <button
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className={`transition-colors ${
-                showWhiteBg ? "text-black hover:text-gray-500" : "text-white hover:text-white/80"
-              }`}
-              aria-label="Search"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
-
-            {/* User Icon */}
-            <Link
-              href="/"
-              className={`transition-colors ${
-                showWhiteBg ? "text-black hover:text-gray-500" : "text-white hover:text-white/80"
-              }`}
-              aria-label="Account"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-            </Link>
-
-            {/* Cart Icon - Desktop Only */}
-            <Link
-              href="/"
-              className={` hidden lg:block transition-colors ${
-                showWhiteBg ? "text-black hover:text-gray-500" : "text-white hover:text-white/80"
-              }`}
-              aria-label="Cart"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                />
-              </svg>
-            </Link>
-          </div>
+          {/* Mobile Menu Button - Right (Mobile Only) */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden flex flex-col justify-center items-center w-16 h-10 space-y-1.5 order-3"
+            aria-label="Toggle menu"
+          >
+            <motion.span
+              animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-blue-900"}`}
+            />
+            <motion.span
+              animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-blue-900"}`}
+            />
+            <motion.span
+              animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+              className={`w-6 h-px block transition-colors ${showWhiteBg ? "bg-black" : "bg-blue-900"}`}
+            />
+          </button>
         </div>
       </div>
-
-      {/* Search Bar Dropdown */}
-      <motion.div
-        initial={false}
-        animate={
-          isSearchOpen
-            ? { height: "auto", opacity: 1 }
-            : { height: 0, opacity: 0 }
-        }
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden bg-white border-b border-gray-200"
-      >
-        <div className="px-8 lg:px-12 py-4">
-          <input
-            type="text"
-            placeholder="Search products..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-gray-300"
-            style={{ borderColor: isSearchOpen ? "var(--color-gray-300)" : "" }}
-          />
-        </div>
-      </motion.div>
 
       {/* Mobile Menu - Full Screen */}
       <motion.div
@@ -209,7 +116,7 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block text-black hover:text-gray-400 transition-colors duration-300 text-2xl font-bold uppercase tracking-wider"
+                className="block text-blue-900 hover:text-gray-400 transition-colors duration-300 text-2xl font-bold uppercase tracking-wider"
               >
                 {item.name}
               </Link>
@@ -220,7 +127,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-6">
             {/* Instagram */}
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/icedale_india/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue transition-colors"
@@ -238,7 +145,7 @@ export default function Navbar() {
 
             {/* Facebook */}
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/icedalekkd/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue transition-colors"
@@ -274,7 +181,7 @@ export default function Navbar() {
 
             {/* WhatsApp */}
             <a
-              href="https://wa.me/"
+              href="https://wa.me/919995900122"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-blue transition-colors"

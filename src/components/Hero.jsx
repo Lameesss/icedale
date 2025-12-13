@@ -3,14 +3,86 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export default function Hero() {
+  // Sleek Hero Text Transition - splits text into words and period separately
+  const text = "Drink And Repeat";
+  const words = text.split(" ");
+
+  // Slow bouncy hero text reveal animation
+  const bouncyTextReveal = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.25, // Slower stagger for smooth effect
+        delayChildren: 0.4,
+      }
+    }
+  };
+
+  // Slow, smooth bouncy word animation - drops from top
+  const bouncyWordAnimation = {
+    hidden: {
+      opacity: 0,
+      y: -60, // Negative = from top
+      scale: 0.5,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        damping: 20, // Higher damping for slower, smoother bounce
+        stiffness: 100, // Lower stiffness for gentler bounce
+        mass: 1.2, // Added mass for more weight/slower movement
+      }
+    }
+  };
+
+  // Period drops and bounces multiple times - realistic bounce effect
+  const bouncyPeriod = {
+    hidden: {
+      opacity: 0,
+      y: -80, // Drops from higher
+      scale: 0.3,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        y: {
+          type: "spring",
+          damping: 8, // Lower damping = more bounces
+          stiffness: 120,
+          mass: 1.5, // More mass for realistic bounce
+        },
+        opacity: {
+          duration: 0.3,
+        },
+        scale: {
+          type: "spring",
+          damping: 10,
+          stiffness: 100,
+        }
+      }
+    }
+  };
+
   // Optimized premium luxury animation variants
   const luxuryFadeIn = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         duration: 0.8,
         ease: [0.22, 1, 0.36, 1], // Smooth deceleration
         delay: 0.2
@@ -20,10 +92,10 @@ export default function Hero() {
 
   const elegantSlideUp = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.7,
         ease: [0.22, 1, 0.36, 1],
         delay: 0.3
@@ -33,10 +105,10 @@ export default function Hero() {
 
   const sophisticatedScale = {
     hidden: { opacity: 0, scale: 0.98 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { 
+      transition: {
         duration: 0.9,
         ease: [0.22, 1, 0.36, 1],
         delay: 0.4
@@ -44,60 +116,38 @@ export default function Hero() {
     }
   };
 
-  return (
-    <section className="relative w-full h-screen overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative w-full h-full"
-          style={{ willChange: 'opacity' }}
-        >
-          <Image
-            src="/images/hero1.jpg"
-            alt="Icedale Background"
-            fill
-            className="object-cover"
-            priority
-            quality={90}
-          />
-          {/* Subtle gradient overlay for luxury depth */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-        </motion.div>
-      </div>
+  // Floating bottle animation - smooth, premium effect
+  const floatingBottle = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      y: 50,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: 1.2,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0.8
+      }
+    }
+  };
 
+  return (
+    <section className={`relative w-full h-screen overflow-hidden bg-white ${outfit.className}`}>
       {/* Content Container */}
       <div className="relative z-10 h-full w-full px-8 lg:px-12 flex items-center">
         <div className="max-w-7xl mx-auto w-full">
-          {/* Mobile Layout - Product First, Then Text */}
+          {/* Mobile Layout - Text First, Then Image, Then Button */}
           <div className="lg:hidden flex flex-col items-center justify-center h-full space-y-6">
-            {/* Product Image - Mobile */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={sophisticatedScale}
-              className="relative h-[300px] w-full flex items-center justify-center"
-              style={{ willChange: 'transform, opacity' }}
-            >
-              <div className="relative w-full h-full">
-                <Image
-                  src="/images/product1.png"
-                  alt="Icedale Water Bottle"
-                  fill
-                  className="object-contain drop-shadow-2xl"
-                  priority
-                />
-              </div>
-            </motion.div>
-
             {/* Text Content - Mobile */}
             <motion.div
               initial="hidden"
               animate="visible"
               variants={luxuryFadeIn}
-              className="text-white space-y-4 text-center"
+              className="text-blue-900 space-y-4 text-center"
             >
               {/* Tagline */}
               <motion.p
@@ -106,32 +156,82 @@ export default function Hero() {
                 transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
                 className="text-sm uppercase tracking-widest font-medium"
               >
-                You are what you drink
+                Premium Hydration
               </motion.p>
 
-              {/* Main Heading */}
+              {/* Main Heading - Bouncy Text Transition */}
               <motion.h1
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="text-3xl sm:text-4xl font-bold uppercase leading-tight"
+                initial="hidden"
+                animate="visible"
+                variants={bouncyTextReveal}
+                className="text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase leading-tight flex flex-wrap justify-center gap-x-2"
               >
-                Drink And Repeat.
-              </motion.h1>
-
-              {/* CTA Button */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.1, duration: 0.6, ease: "easeOut" }}
-              >
-                <Link
-                  href="/product"
-                  className="inline-block px-8 py-3 bg-blue-800 text-white font-bold uppercase tracking-wider hover:bg-white hover:text-blue-900 transition-all duration-300 text-sm"
+                {words.map((word, index) => (
+                  <motion.span
+                    key={index}
+                    variants={bouncyWordAnimation}
+                    className="inline-block"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+                {/* Period as Circle - Bounces Multiple Times */}
+                <motion.span
+                  variants={bouncyPeriod}
+                  className="inline-flex items-end justify-center"
+                  style={{ paddingBottom: '0.3em' }}
                 >
-                  Shop Now
-                </Link>
+                  <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3 bg-blue-900 rounded-full"></span>
+                </motion.span>
+              </motion.h1>
+            </motion.div>
+
+            {/* Product Image - Mobile */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={floatingBottle}
+              className="relative h-[300px] w-full flex items-center justify-center"
+            >
+              <motion.div
+                animate={{
+                  y: [0, -12, 0],
+                  rotate: [0, 1, 0, -1, 0],
+                  scale: [1, 1.015, 1],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: [0.45, 0.05, 0.55, 0.95],
+                }}
+                className="relative w-full h-full"
+                style={{
+                  filter: 'drop-shadow(0 20px 40px rgba(25, 65, 185, 0.15))'
+                }}
+              >
+                <Image
+                  src="/images/hero.png"
+                  alt="Icedale Water Bottle"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </motion.div>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1, duration: 0.6, ease: "easeOut" }}
+            >
+              <Link
+                href="/product"
+                className="inline-block px-8 py-3 bg-blue-900 text-white font-bold uppercase tracking-wider hover:bg-white hover:text-blue-900 transition-all duration-300 text-sm"
+              >
+                Shop Now
+              </Link>
             </motion.div>
           </div>
 
@@ -142,7 +242,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               variants={elegantSlideUp}
-              className="text-white space-y-6"
+              className="text-blue-900 space-y-6"
             >
               {/* Tagline */}
               <motion.p
@@ -151,17 +251,33 @@ export default function Hero() {
                 transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
                 className="text-base uppercase tracking-widest font-medium"
               >
-                You are what you drink
+                Premium Hydration
               </motion.p>
 
-              {/* Main Heading */}
+              {/* Main Heading - Bouncy Text Transition */}
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="text-6xl lg:text-7xl font-bold uppercase leading-tight"
+                initial="hidden"
+                animate="visible"
+                variants={bouncyTextReveal}
+                className="text-5xl lg:text-6xl xl:text-7xl font-extrabold uppercase leading-tight flex flex-wrap gap-x-3"
               >
-                Drink And Repeat.
+                {words.map((word, index) => (
+                  <motion.span
+                    key={index}
+                    variants={bouncyWordAnimation}
+                    className="inline-block"
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+                {/* Period as Circle - Bounces Multiple Times */}
+                <motion.span
+                  variants={bouncyPeriod}
+                  className="inline-flex items-end justify-center"
+                  style={{ paddingBottom: '0.3em' }}
+                >
+                  <span className="w-3 h-3 lg:w-4 lg:h-4 xl:w-5 xl:h-5 bg-blue-900 rounded-full"></span>
+                </motion.span>
               </motion.h1>
 
               {/* CTA Button */}
@@ -172,7 +288,7 @@ export default function Hero() {
               >
                 <Link
                   href="/product"
-                  className="inline-block px-8 py-3 bg-blue-800 text-white font-bold uppercase tracking-wider hover:bg-white hover:text-blue-900 transition-all duration-300 text-base"
+                  className="inline-block px-8 py-3 bg-blue-900 text-white font-bold uppercase tracking-wider hover:bg-white hover:text-blue-900 transition-all duration-300 text-base"
                 >
                   Shop Now
                 </Link>
@@ -183,19 +299,34 @@ export default function Hero() {
             <motion.div
               initial="hidden"
               animate="visible"
-              variants={sophisticatedScale}
+              variants={floatingBottle}
               className="relative h-[700px] flex items-center justify-center"
-              style={{ willChange: 'transform, opacity' }}
             >
-              <div className="relative w-full h-full">
+              <motion.div
+                animate={{
+                  y: [0, -18, 0],
+                  rotate: [0, 1.5, 0, -1.5, 0],
+                  scale: [1, 1.02, 1],
+                }}
+                transition={{
+                  duration: 7,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  ease: [0.45, 0.05, 0.55, 0.95],
+                }}
+                className="relative w-full h-full"
+                style={{
+                  filter: 'drop-shadow(0 30px 60px rgba(25, 65, 185, 0.2))'
+                }}
+              >
                 <Image
-                  src="/images/product1.png"
+                  src="/images/hero.png"
                   alt="Icedale Water Bottle"
                   fill
-                  className="object-contain drop-shadow-2xl"
+                  className="object-contain"
                   priority
                 />
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -211,7 +342,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="text-white text-center"
+          className="text-blue-900 text-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -224,7 +355,7 @@ export default function Hero() {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              // d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            // d="M19 14l-7 7m0 0l-7-7m7 7V3"
             />
           </svg>
           <p className="text-xs uppercase tracking-wider mt-2"></p>

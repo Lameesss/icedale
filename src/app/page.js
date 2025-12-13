@@ -12,6 +12,8 @@ import Content2 from "@/components/Content2";
 import ImageContent from "@/components/ImageContent";
 import Subscribe from "@/components/Suscribe";
 import Social from "@/components/Social";
+import Features from "@/components/Features";
+
 
 export default function Home() {
   return (
@@ -20,11 +22,14 @@ export default function Home() {
       <Banner2 />
       <Drink />
       <Product />
-      <Content />
+       <Content />
+      
+      <Features />
       <Icon />
-      <Images />
-      <About />
-      <Video />
+     
+      {/* <Images /> */}
+      {/* <About /> */}
+      {/* <Video /> */}
       <Content2 />
       <ImageContent />
       <Social />

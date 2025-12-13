@@ -3,10 +3,16 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp } from "@/utils/animations";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export default function Content() {
   return (
-    <section className="w-full py-16 lg:py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section className={`w-full py-16 lg:py-24 bg-gradient-to-b from-gray-50 to-white ${outfit.className}`}>
       <div className="max-w-4xl mx-auto px-8 lg:px-12 text-center">
         {/* Heading */}
         <motion.h2
@@ -14,9 +20,9 @@ export default function Content() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-black mb-8 leading-tight"
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold text-blue-900 mb-8 leading-tight"
         >
-          The Purest Tasting Water On Earth®
+          Pure Hydration, Perfected for Everyday Life®
         </motion.h2>
 
         {/* Description */}
@@ -27,10 +33,10 @@ export default function Content() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-10 max-w-3xl mx-auto"
         >
-          Over 5,000 years ago, long before the first humans reached remote Iceland, a massive
-          volcanic eruption created a unique underground spring, complete with its own natural
-          filtration system– pristine lava rock. Now known as the Ölfus Spring, this is the source of
-          Icedale
+         Crafted with care, Icedale Mineral Water delivers clean, refreshing hydration you can trust.
+Processed under strict quality standards for consistent purity and taste.
+Designed for modern living at work, at home, or on the move.
+Icedale isn&apos;t just water, it&apos;s hydration you can depend on.
         </motion.p>
 
         {/* Button */}

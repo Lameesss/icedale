@@ -4,34 +4,58 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp } from "@/utils/animations";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export default function Product() {
   const products = [
     {
       id: 1,
-      name: "NATURAL SPRING WATER",
-      image: "/images/product2.png",
+      name: "MINI WATER BOTTLE",
+      image: "/images/2.png",
       link: "/product/natural-spring-water",
     },
     {
       id: 2,
-      name: "GLASS",
-      image: "/images/product3.png",
+      name: "500 ML BOTTLE",
+      image: "/images/1.png",
       link: "/product/glass",
     },
     {
       id: 3,
-      name: "ALUMINUM CANS",
-      image: "/images/product4.png",
+      name: "PARTY BOTTLE",
+      image: "/images/3.png",
       link: "/product/aluminum-cans",
+    },
+    {
+      id: 4,
+      name: "1 LITER BOTTLE",
+      image: "/images/4.png",
+      link: "/product/sparkling-water",
+    },
+    {
+      id: 5,
+      name: "PREMIUM BOTTLE",
+      image: "/images/5.png",
+      link: "/product/premium-glass-bottles",
+    },
+    {
+      id: 6,
+      name: "ECO-FRIENDLY CANS",
+      image: "/images/6.jpg",
+      link: "/product/eco-friendly-cans",
     },
   ];
 
   return (
-    <section className="w-full py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className={`w-full py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50 ${outfit.className}`}>
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
