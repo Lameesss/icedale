@@ -137,6 +137,18 @@ export default function Hero() {
 
   return (
     <section className={`relative w-full h-screen overflow-hidden bg-white ${outfit.className}`}>
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/hero1.jpg"
+          alt="Icedale Background"
+          fill
+          className="object-cover"
+          priority
+          quality={90}
+        />
+      </div>
+
       {/* Content Container */}
       <div className="relative z-10 h-full w-full px-8 lg:px-12 flex items-center">
         <div className="max-w-7xl mx-auto w-full">

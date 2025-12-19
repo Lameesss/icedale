@@ -191,7 +191,7 @@ export default function About() {
               <div className="relative rounded-[2rem] overflow-hidden shadow-2xl">
                 <div className="relative w-full h-[400px] lg:h-[500px]">
                   <Image
-                    src="/images/founder/team.jpg"
+                    src="/images/founder/ice2.png"
                     alt="Icedale Water Quality"
                     fill
                     className="object-cover"
@@ -324,7 +324,7 @@ export default function About() {
               className="relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden shadow-2xl"
             >
               <Image
-                src="/images/about1.jpg"
+                src="/images/founder/ice14.png"
                 alt="Icedale Story"
                 fill
                 className="object-cover"

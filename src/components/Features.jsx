@@ -19,7 +19,7 @@ const Features = () => {
             <Container>
                 <div className="flex flex-col items-center text-center max-w-2xl mx-auto">
                     <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold !leading-snug mt-6 text-blue-900">
-                        Behind the Brand<br />Sajeer <span  >Thayyil</span>
+                        About the Brand<br />ice <span  >dale</span>
                     </h2>
                     <p className="text-base md:text-lg text-center text-gray-700 mt-6">
                         Experience pure, high-quality drinking water. Carefully processed and quality-tested, Icedale delivers refreshment you can trust every day.                    </p>
@@ -55,16 +55,17 @@ const Features = () => {
                                                 </div>
                                             </Link>
                                             <div className="px-4 py-2 rounded-full bg-gray-200 backdrop-blur-sm border border-gray-300">
-                                                <span className="text-sm text-black/90">founder</span>
+                                                <span className="text-sm text-black/90">Brand</span>
                                             </div>
                                         </div>
 
                                         {/* Content */}
                                         <div className="flex-1 mb-6">
-                                            <h3 className="text-2xl font-semibold text-black mb-4">Sajeer Thayyil</h3>
+                                            <h3 className="text-2xl font-semibold text-black mb-4">icedale</h3>
                                             <p className="text-base text-black/70 leading-relaxed">
-                                                Sajeer Thayyil, Founder of Icedale, is committed to delivering pure and reliable drinking water without compromise. Driven by quality and consistency, he founded Icedale to raise standards in packaged water through trust, transparency, and responsible purification. Every bottle reflects his dedication to safe, refreshing hydration.
-                                            </p>
+Icedale is a premium packaged drinking water brand built on purity, quality, and trust.
+Designed for modern lifestyles, it delivers clean, refreshing hydration through strict quality standards.
+Focused on consistency and reliability, Icedale provides safe drinking water you can depend on every day.                                            </p>
                                         </div>
 
                                         {/* Metric Badge */}
@@ -77,7 +78,7 @@ const Features = () => {
                                     <div className="relative w-full min-h-[300px] md:min-h-[400px]">
                                         <div className="absolute inset-0 w-full h-full overflow-hidden rounded-2xl lg:rounded-3xl">
                                             <Image
-                                                src="/images/founder/sajeer.jpg"
+                                                src="/images/founder/ice1.png"
                                                 alt="Premium Water Bottle"
                                                 fill
                                                 className="object-cover"
@@ -91,7 +92,7 @@ const Features = () => {
                                     <div className="relative w-full min-h-[300px] md:min-h-[400px]">
                                         <div className="absolute inset-0 w-full h-full overflow-hidden rounded-2xl lg:rounded-3xl">
                                             <Image
-                                                src="/images/founder/team2.jpg"
+                                                src="/images/founder/ice15.png"
                                                 alt="Office Environment"
                                                 fill
                                                 className="object-cover"
@@ -119,7 +120,7 @@ const Features = () => {
                                     <div className="relative w-full min-h-[300px] md:min-h-[400px]">
                                         <div className="absolute inset-0 w-full h-full overflow-hidden rounded-2xl lg:rounded-3xl">
                                             <Image
-                                                src="/images/founder/team.jpg"
+                                                src="/images/founder/ice13.png"
                                                 alt="Refreshing Hydration"
                                                 fill
                                                 className="object-cover"

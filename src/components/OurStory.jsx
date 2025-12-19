@@ -89,7 +89,7 @@ export default function OurStory() {
                         <div className="relative rounded-[2rem] overflow-hidden shadow-2xl">
                             <div className="aspect-[4/3] relative">
                                 <Image
-                                    src="/images/founder/team3.jpg"
+                                    src="/images/founder/ice9.png"
                                     alt="Icedale Water Story"
                                     fill
                                     className="object-cover"
