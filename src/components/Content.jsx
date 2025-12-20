@@ -50,7 +50,7 @@ Icedale isn&apos;t just water, it&apos;s hydration you can depend on.
             href="/product"
             className="inline-block px-10 py-3 border-2 border-black text-black text-sm font-bold uppercase tracking-wider hover:bg-black hover:text-white transition-all duration-300 rounded-full"
           >
-            SHOP ALL WATER
+            Explore Products
           </Link>
         </motion.div>
       </div>

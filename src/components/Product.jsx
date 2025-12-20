@@ -88,12 +88,12 @@ export default function Product() {
               </h3>
 
               {/* Shop Now Link */}
-              <Link
+              {/* <Link
                 href={"/product"}
                 className="inline-block text-xs font-bold uppercase tracking-wider text-black hover:text-blue-950 transition-all duration-300"
               >
                 SHOP NOW
-              </Link>
+              </Link> */}
             </motion.div>
           ))}
         </div>

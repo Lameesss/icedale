@@ -242,7 +242,7 @@ export default function Hero() {
                 href="/product"
                 className="inline-block px-8 py-3 bg-blue-900 text-white font-bold uppercase tracking-wider hover:bg-white hover:text-blue-900 transition-all duration-300 text-sm"
               >
-                Shop Now
+                View Products
               </Link>
             </motion.div>
           </div>
@@ -302,7 +302,7 @@ export default function Hero() {
                   href="/product"
                   className="inline-block px-8 py-3 bg-blue-900 text-white font-bold uppercase tracking-wider hover:bg-white hover:text-blue-900 transition-all duration-300 text-base"
                 >
-                  Shop Now
+                  View Products
                 </Link>
               </motion.div>
             </motion.div>
