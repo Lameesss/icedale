@@ -39,7 +39,7 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base sm:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed"
           >
-            Discover the journey from pristine clouds above Icedale to the ancient artesian aquifer deep beneath the surface. It's not just water, it's Icedale Water.
+            Discover the journey from pristine clouds above Icedale to the ancient artesian aquifer deep beneath the surface.
           </motion.p>
 
           {/* CTA Button */}
@@ -53,7 +53,7 @@ export default function About() {
               href="/about"
               className="inline-block px-8 py-4 bg-black text-white text-sm font-bold uppercase tracking-widest hover:bg-blue-900 transition-all duration-300"
             >
-              DISCOVER OUR STORY
+              DISCOVER MORE
             </Link>
           </motion.div>
         </div>
