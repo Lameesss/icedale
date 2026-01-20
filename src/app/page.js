@@ -22,17 +22,21 @@ export default function Home() {
       <Banner2 />
       <Drink />
       <Product />
-       <Content />
-      
+      <Content />
+
       <Features />
       <Icon />
-     
+
       {/* <Images /> */}
       {/* <About /> */}
       {/* <Video /> */}
-      <Content2 />
+      <div className="hidden md:block">
+        <Content2 />
+      </div>
       <ImageContent />
-      <Social />
+      <div className="hidden md:block">
+        <Social />
+      </div>
     </main>
   );
 }

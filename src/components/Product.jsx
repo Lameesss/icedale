@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeInUp } from "@/utils/animations";
 import { Outfit } from "next/font/google";
+import { useState } from "react";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -12,6 +13,8 @@ const outfit = Outfit({
 });
 
 export default function Product() {
+  const [showAll, setShowAll] = useState(false);
+
   const products = [
     {
       id: 1,
@@ -51,11 +54,66 @@ export default function Product() {
     },
   ];
 
+  // On mobile, show only first 3 products unless showAll is true
+  const displayedProducts = showAll ? products : products.slice(0, 3);
+
   return (
     <section className={`w-full py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50 ${outfit.className}`}>
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
+        {/* Products Grid - Mobile */}
+        <div className="md:hidden">
+          <div className="grid grid-cols-1 gap-12">
+            {displayedProducts.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                className="flex flex-col items-center text-center group"
+              >
+                {/* Product Image */}
+                <div className="relative w-full h-[350px] mb-8 flex items-center justify-center">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative w-full h-full"
+                  >
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-contain drop-shadow-xl"
+                      sizes="100vw"
+                    />
+                  </motion.div>
+                </div>
+
+                {/* Product Name */}
+                <h3 className="text-sm font-bold uppercase tracking-wider mb-4 text-black">
+                  {product.name}
+                </h3>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* More Button - Only show on mobile if not all products are displayed */}
+          {!showAll && (
+            <div className="flex justify-center mt-12">
+              <motion.button
+                onClick={() => setShowAll(true)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 text-sm font-bold uppercase tracking-wider text-white bg-blue-900 hover:bg-blue-950 rounded-full transition-all duration-300"
+              >
+                More
+              </motion.button>
+            </div>
+          )}
+        </div>
+
+        {/* Products Grid - Tablet and Desktop (show all) */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
@@ -86,14 +144,6 @@ export default function Product() {
               <h3 className="text-sm font-bold uppercase tracking-wider mb-4 text-black">
                 {product.name}
               </h3>
-
-              {/* Shop Now Link */}
-              {/* <Link
-                href={"/product"}
-                className="inline-block text-xs font-bold uppercase tracking-wider text-black hover:text-blue-950 transition-all duration-300"
-              >
-                SHOP NOW
-              </Link> */}
             </motion.div>
           ))}
         </div>

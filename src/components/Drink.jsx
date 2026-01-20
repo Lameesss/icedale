@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function Drink() {
   // Split text into individual letters with spaces between words
-  const text = "DRINK  IT  ALL  IN";
+  const text = "DRINK & REPEAT";
   const letters = text.split("");
 
   // Container animation for staggered children
