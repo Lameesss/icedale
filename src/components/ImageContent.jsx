@@ -111,13 +111,13 @@ export default function UpcomingProducts() {
                 </p>
 
                 {/* Notify Me Button */}
-                <motion.button
+                {/* <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   className="w-full mt-4 px-6 py-3 bg-blue-900 text-white font-bold uppercase tracking-wider hover:bg-blue-800 transition-all duration-300 rounded-full"
                 >
                   Notify Me
-                </motion.button>
+                </motion.button> */}
               </div>
 
               {/* Hover Effect Overlay */}
