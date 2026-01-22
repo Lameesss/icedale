@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Outfit } from "next/font/google";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -19,6 +19,7 @@ export default function Contact() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -31,22 +32,67 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // Format message for WhatsApp
+    const whatsappMessage = `*New Contact Form Submission*%0A%0A` +
+      `*Name:* ${formData.name}%0A` +
+      `*Email:* ${formData.email}%0A` +
+      `*Phone:* ${formData.phone || 'Not provided'}%0A` +
+      `*Subject:* ${formData.subject}%0A%0A` +
+      `*Message:*%0A${formData.message}`;
 
-    console.log("Form submitted:", formData);
-    alert("Thank you for contacting us! We'll get back to you soon.");
+    // WhatsApp number (without + or spaces)
+    const whatsappNumber = "919995900122";
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    });
-    setIsSubmitting(false);
+    // Open WhatsApp with pre-filled message
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+    window.open(whatsappUrl, '_blank');
+
+    // Reset form and close modal
+    setTimeout(() => {
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+      setIsSubmitting(false);
+      setIsModalOpen(false);
+    }, 1000);
   };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+    } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+
+    // Cleanup function
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+    };
+  }, [isModalOpen]);
 
   const contactInfo = [
     {
@@ -206,8 +252,8 @@ export default function Contact() {
       {/* Contact Form Section */}
       <section className="py-20 lg:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-            {/* Left Side - Form Info */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left Side - Info */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -253,171 +299,226 @@ export default function Contact() {
                   Have questions about our premium water products? Need assistance with bulk orders or delivery schedules? Our dedicated team is here to provide you with the support you need.
                 </p>
                 <p className="text-base lg:text-lg leading-relaxed text-gray-700">
-                  Fill out the form and we'll get back to you within 24 hours. For urgent inquiries, please call us directly.
+                  Click on WhatsApp below to send us a message. We'll get back to you within 24 hours. For urgent inquiries, please call us directly.
                 </p>
-
-                {/* Social Links */}
-                <div className="pt-6">
-                  <p className="text-sm font-semibold text-blue-900 mb-4 uppercase tracking-wider">Follow Us</p>
-                  <div className="flex space-x-4">
-                    <a href="https://www.facebook.com/icedalekkd/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center text-white hover:bg-blue-800 transition-all duration-300 hover:scale-110">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                      </svg>
-                    </a>
-                    <a href="https://www.instagram.com/icedale_india/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center text-white hover:bg-blue-800 transition-all duration-300 hover:scale-110">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                      </svg>
-                    </a>
-                    <a href="https://wa.me/919995900122" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center text-white hover:bg-blue-800 transition-all duration-300 hover:scale-110">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
               </motion.div>
             </motion.div>
 
-            {/* Right Side - Contact Form */}
+            {/* Right Side - Social Buttons */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col items-center justify-center"
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="text-sm font-semibold text-blue-900 mb-8 uppercase tracking-wider"
+              >
+                Follow Us
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="flex flex-col space-y-6"
+              >
+                {/* Facebook */}
+                <a
+                  href="https://www.facebook.com/icedalekkd/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-4 p-6 bg-white border-2 border-blue-900 rounded-2xl hover:bg-blue-900 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  <label htmlFor="name" className="block text-sm font-semibold text-blue-900 mb-2 uppercase tracking-wider">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300"
-                    placeholder="Enter your full name"
-                  />
-                </motion.div>
+                  <div className="w-16 h-16 bg-blue-900 group-hover:bg-white rounded-xl flex items-center justify-center text-white group-hover:text-blue-900 transition-all duration-300">
+                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-blue-900 group-hover:text-white transition-all duration-300">Facebook</p>
+                    <p className="text-sm text-gray-600 group-hover:text-white/80 transition-all duration-300">Follow our page</p>
+                  </div>
+                </a>
 
-                {/* Email & Phone */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4, duration: 0.6 }}
-                  >
-                    <label htmlFor="email" className="block text-sm font-semibold text-blue-900 mb-2 uppercase tracking-wider">
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300"
-                      placeholder="your@email.com"
-                    />
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
-                  >
-                    <label htmlFor="phone" className="block text-sm font-semibold text-blue-900 mb-2 uppercase tracking-wider">
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300"
-                      placeholder="+91 123 456 7890"
-                    />
-                  </motion.div>
-                </div>
-
-                {/* Subject */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
+                {/* Instagram */}
+                <a
+                  href="https://www.instagram.com/icedale_india/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-4 p-6 bg-white border-2 border-blue-900 rounded-2xl hover:bg-blue-900 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  <label htmlFor="subject" className="block text-sm font-semibold text-blue-900 mb-2 uppercase tracking-wider">
-                    Subject *
-                  </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300"
-                    placeholder="How can we help you?"
-                  />
-                </motion.div>
+                  <div className="w-16 h-16 bg-blue-900 group-hover:bg-white rounded-xl flex items-center justify-center text-white group-hover:text-blue-900 transition-all duration-300">
+                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-blue-900 group-hover:text-white transition-all duration-300">Instagram</p>
+                    <p className="text-sm text-gray-600 group-hover:text-white/80 transition-all duration-300">Follow our updates</p>
+                  </div>
+                </a>
 
-                {/* Message */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7, duration: 0.6 }}
+                {/* WhatsApp - Opens Modal */}
+                <button
+                  onClick={openModal}
+                  className="group flex items-center space-x-4 p-6 bg-white border-2 border-blue-900 rounded-2xl hover:bg-blue-900 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
                 >
-                  <label htmlFor="message" className="block text-sm font-semibold text-blue-900 mb-2 uppercase tracking-wider">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300 resize-none"
-                    placeholder="Tell us more about your inquiry..."
-                  />
-                </motion.div>
-
-                {/* Submit Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                >
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full px-8 py-4 bg-blue-900 text-white text-sm font-bold uppercase tracking-widest rounded-xl hover:bg-blue-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </button>
-                </motion.div>
-              </form>
+                  <div className="w-16 h-16 bg-blue-900 group-hover:bg-white rounded-xl flex items-center justify-center text-white group-hover:text-blue-900 transition-all duration-300">
+                    <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-blue-900 group-hover:text-white transition-all duration-300">WhatsApp</p>
+                    <p className="text-sm text-gray-600 group-hover:text-white/80 transition-all duration-300">Send us a message</p>
+                  </div>
+                </button>
+              </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
+
+      {/* Contact Form Modal */}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+          onClick={closeModal}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full max-w-2xl my-8 bg-white rounded-3xl shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={closeModal}
+              className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-300 z-10"
+            >
+              <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Modal Content */}
+            <div className="p-6 lg:p-8">
+              <div className="mb-6">
+                <p className="text-sm font-light mb-1 text-blue-900">Send Us A Message</p>
+                <h2 className="text-2xl lg:text-3xl font-bold uppercase leading-tight tracking-wide text-blue-900">
+                  Contact Form
+                </h2>
+                <div className="w-20 h-0.5 mt-3 bg-blue-900" />
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Name */}
+                <div>
+                  <label htmlFor="modal-name" className="block text-xs font-semibold text-blue-900 mb-1.5 uppercase tracking-wider">
+                    Full Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="modal-name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                {/* Email & Phone */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="modal-email" className="block text-xs font-semibold text-blue-900 mb-1.5 uppercase tracking-wider">
+                      Email *
+                    </label>
+                    <input
+                      type="email"
+                      id="modal-email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="modal-phone" className="block text-xs font-semibold text-blue-900 mb-1.5 uppercase tracking-wider">
+                      Phone
+                    </label>
+                    <input
+                      type="tel"
+                      id="modal-phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300"
+                      placeholder="+91 123 456 7890"
+                    />
+                  </div>
+                </div>
+
+                {/* Subject */}
+                <div>
+                  <label htmlFor="modal-subject" className="block text-xs font-semibold text-blue-900 mb-1.5 uppercase tracking-wider">
+                    Subject *
+                  </label>
+                  <input
+                    type="text"
+                    id="modal-subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300"
+                    placeholder="How can we help you?"
+                  />
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label htmlFor="modal-message" className="block text-xs font-semibold text-blue-900 mb-1.5 uppercase tracking-wider">
+                    Message *
+                  </label>
+                  <textarea
+                    id="modal-message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows={3}
+                    className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent transition-all duration-300 resize-none"
+                    placeholder="Tell us more about your inquiry..."
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-3 bg-blue-900 text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-blue-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  {isSubmitting ? "Sending to WhatsApp..." : "Send Message"}
+                </button>
+              </form>
+            </div>
+          </motion.div>
+        </div>
+      )}
 
       {/* Location Section */}
       <section className="py-20 lg:py-32 bg-gray-50">
