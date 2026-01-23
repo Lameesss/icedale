@@ -33,7 +33,7 @@ export default function Navbar() {
 
   const navItems = [
     { name: "Home", href: "/" },
-    { name: "Product", href: "/product" },
+    // { name: "Product", href: "/product" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
@@ -55,9 +55,9 @@ export default function Navbar() {
             <Image
               src="/images/logo.png"
               alt="Icedale Logo"
-              width={220}
-              height={90}
-              className="h-14 lg:h-16 w-auto"
+              width={280}
+              height={110}
+              className="h-16 lg:h-18 w-auto"
               priority
             />
           </Link>
