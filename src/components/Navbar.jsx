@@ -43,12 +43,12 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${outfit.className} ${showWhiteBg
+      className={`fixed py-2 top-0 left-0 right-0 z-50 transition-all duration-300 ${outfit.className} ${showWhiteBg
         ? "bg-white border-b border-gray-200 shadow-sm"
         : "bg-transparent border-b border-transparent"
         }`}
     >
-      <div className="w-full px-8 lg:px-12">
+      <div className="w-full px-8  lg:px-12">
         <div className="flex justify-between items-center h-16 lg:justify-between">
           {/* Logo - Left on Mobile, Left on Desktop */}
           <Link href="/" className="flex items-center order-1">
@@ -57,7 +57,7 @@ export default function Navbar() {
               alt="Icedale Logo"
               width={280}
               height={110}
-              className="h-16 lg:h-18 w-auto"
+              className="h-20 lg:h-22  w-auto"
               priority
             />
           </Link>
